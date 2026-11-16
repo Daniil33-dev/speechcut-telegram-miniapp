@@ -1,6 +1,6 @@
 # Архитектура
 
-Реализован один вариант: VPS + OpenAI + AssemblyAI. В этом репозитории нет адаптеров OpenRouter, Vercel Blob/Workflow/Sandbox или PostgreSQL. Для них потребуется отдельная разработка.
+Реализован один вариант: VPS + OpenAI + AssemblyAI. В этом репозитории нет адаптеров OpenRouter, Vercel Blob/Workflow/Sandbox или PostgreSQL. Для них потребуется отдельная разработка по [схеме альтернатив](ALTERNATIVES.md), [Vercel](../deploy/VERCEL.md) и [OpenRouter](OPENROUTER.md). Выбор из исходного мастер-промпта сохранён; статус реализации обозначен отдельно.
 
 ## Каталоги
 
