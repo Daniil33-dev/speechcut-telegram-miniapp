@@ -1,6 +1,10 @@
 # Speechcut public source
 
-Install and maintain this existing VPS / OpenAI / AssemblyAI implementation.
+The ready implementation is VPS / OpenAI / AssemblyAI.
+Restore user choice from docs/ALTERNATIVES.md: if the user chooses Vercel or
+OpenRouter, implement the documented adapters in a separate branch and validate
+that path. Do not claim alternatives work by changing an env flag.
+Do not silently replace a selected cloud/free option with VPS/a paid model.
 Read docs/INSTALL.md, docs/FIXES.md and prompts/MASTER_PROMPT_RU.md.
 Use each installer’s own accounts and isolated services. Do not modify unrelated
 applications or publish runtime files, personal recordings, credentials or URLs.
