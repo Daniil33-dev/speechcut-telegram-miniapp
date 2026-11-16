@@ -1,0 +1,19 @@
+name: Prepare private publication history
+on:
+  push:
+    paths: ['.github/workflows/prepare-history.yml']
+permissions:
+  contents: write
+jobs:
+  sanitize:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish source without personal author metadata
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$(printf '%s+%s@%s' "$GITHUB_ACTOR_ID" "$GITHUB_ACTOR" users.noreply.github.com)"
+          publish_tree=$(git rev-parse 'HEAD^{tree}')
+          publish_root=$(printf 'Speechcut 1.1 public source and installation\n' | git commit-tree "$publish_tree")
+          git push --force-with-lease="refs/heads/main:$(git rev-parse HEAD)" origin "$publish_root:refs/heads/main"

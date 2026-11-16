@@ -1,0 +1,23 @@
+node_modules/
+.next/
+.local/
+.tools/
+.env*
+!.env.example
+*.tsbuildinfo
+*.log
+.DS_Store
+
+# Never publish private media or credentials
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+known_hosts
+*.sqlite*
+*.db
+*.mp4
+*.MOV
+*.mov
+*.webm
+*.mkv

@@ -1,0 +1,6 @@
+[Unit]
+Description=Speechcut consistent SQLite backup
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/speechcut-backup
+UMask=0077

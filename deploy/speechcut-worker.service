@@ -1,0 +1,27 @@
+[Unit]
+Description=Speechcut durable media worker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=speechcut
+Group=speechcut
+WorkingDirectory=/opt/speechcut/current
+EnvironmentFile=/etc/speechcut.env
+ExecStart=/usr/bin/flock -n /var/lib/speechcut/worker.lock /usr/local/bin/node --import tsx src/server/worker.ts
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=20
+KillMode=control-group
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/speechcut
+CPUQuota=200%
+MemoryMax=2G
+
+[Install]
+WantedBy=multi-user.target

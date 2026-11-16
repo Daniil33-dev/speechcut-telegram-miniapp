@@ -1,0 +1,10 @@
+[Unit]
+Description=Speechcut temporary file cleanup
+[Service]
+Type=oneshot
+User=speechcut
+Group=speechcut
+WorkingDirectory=/opt/speechcut/current
+EnvironmentFile=/etc/speechcut.env
+ExecStart=/usr/local/bin/node --import tsx scripts/cleanup.ts
+UMask=0077

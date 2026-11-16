@@ -1,0 +1,11 @@
+editor.example.com {
+  encode zstd gzip
+  header {
+    X-Content-Type-Options nosniff
+    Referrer-Policy no-referrer
+  }
+  request_body {
+    max_size 9MB
+  }
+  reverse_proxy 127.0.0.1:3048
+}

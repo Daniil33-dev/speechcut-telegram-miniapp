@@ -1,0 +1,10 @@
+import { telegram } from "../src/server/telegram";
+import { config, requireSecret } from "../src/server/config";
+const c = config();
+if (!c.appUrl.startsWith("https://") || !c.allowedUsers.size) throw new Error("Production HTTPS URL and owner allowlist are required.");
+const me = await telegram("getMe", {});
+await telegram("setWebhook", { url: `${c.appUrl}/api/telegram`, secret_token: requireSecret("TELEGRAM_WEBHOOK_SECRET"), allowed_updates: ["message"] });
+await telegram("setChatMenuButton", { menu_button: { type: "web_app", text: "Открыть монтаж", web_app: { url: c.appUrl } } });
+for (const id of c.allowedUsers) await telegram("setChatMenuButton", { chat_id: id, menu_button: { type: "web_app", text: "Открыть монтаж", web_app: { url: c.appUrl } } });
+await telegram("setMyCommands", { commands: [{ command: "start", description: "Открыть монтаж видео" }] });
+console.log(JSON.stringify({ bot: `https://t.me/${me.username}`, app: c.appUrl, webhookConfigured: true }));

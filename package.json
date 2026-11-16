@@ -1,0 +1,44 @@
+{
+  "name": "speechcut-miniapp",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1 --port 3048",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1 --port 3048",
+    "worker": "node --env-file-if-exists=.env.local --import tsx src/server/worker.ts",
+    "check": "tsc --noEmit",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "test:media": "node --env-file-if-exists=.env.local --import tsx --test tests/*.media.ts",
+    "doctor": "node --env-file-if-exists=.env.local --import tsx scripts/doctor.ts",
+    "db:migrate": "node --env-file-if-exists=.env.local --import tsx scripts/migrate.ts",
+    "setup:env": "node --import tsx scripts/init-env.ts",
+    "setup:media": "node --env-file-if-exists=.env.local --import tsx scripts/prepare-media.ts",
+    "setup:telegram": "node --import tsx scripts/setup-telegram.ts",
+    "audit:public": "node scripts/audit-public.mjs"
+  },
+  "dependencies": {
+    "next": "16.4.6",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "openai": "7.57.0",
+    "zod": "4.6.7",
+    "fontkit": "3.0.0",
+    "onnxruntime-web": "1.31.1"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2",
+    "tsx": "4.23.15",
+    "@types/node": "24.10.0",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@types/fontkit": "2.0.9"
+  },
+  "license": "MIT",
+  "description": "Self-hosted Telegram Mini App for transcript-based speech video editing"
+}

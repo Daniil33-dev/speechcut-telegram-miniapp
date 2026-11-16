@@ -1,0 +1,24 @@
+[Unit]
+Description=Speechcut Mini App web
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=speechcut
+Group=speechcut
+WorkingDirectory=/opt/speechcut/current
+EnvironmentFile=/etc/speechcut.env
+ExecStart=/usr/local/bin/node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3048
+Restart=on-failure
+RestartSec=3
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/speechcut
+MemoryMax=768M
+
+[Install]
+WantedBy=multi-user.target

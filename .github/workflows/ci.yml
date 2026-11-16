@@ -1,0 +1,26 @@
+name: Verify public source
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      FONT_PATH: public/fonts/DejaVuSans-Bold.ttf
+      VAD_MODEL_PATH: .local/models/silero-v5.1.2.onnx
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.22.3'
+      - run: npm install --global pnpm@11.25.0
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg fonts-dejavu-core
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run setup:env
+      - run: pnpm run setup:media
+      - run: pnpm run check && pnpm test
+      - run: pnpm run db:migrate && pnpm run doctor -- --offline
+      - run: pnpm run test:media
+      - run: pnpm run build
+      - run: pnpm run audit:public
